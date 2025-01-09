@@ -8,7 +8,6 @@ Instantiate 3 separate rectangular prisms with the test data given, and check th
 class rectPrism:
 
     def __init__(self, l=1, w=1, h=1):
-        # note you will need to specify more input parameters
         if l == 0:
             print("Invalide lingth entered")
         if w == 0:

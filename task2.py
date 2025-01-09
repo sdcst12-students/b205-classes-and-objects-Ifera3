@@ -14,29 +14,31 @@ class Calc:
     nPeriods = 0
 
     def __init__(self, P, r, n):
-        #more input parameters needed
         self.principal = P
         self.rate = r/100
         self.nPeriods = n
 
     def interest(self, t, Ttype = "years"):
+        return round(self.amount(t, Ttype) - self.principal, 2)
+    
+    def amount(self, t, Ttype = "years"):
         if Ttype == 'years':
-            return round(self.amount(t) - self.principal, 2)
+            return round(self.principal * ((1 + (self.rate / self.nPeriods))**(self.nPeriods * t)), 2)
         elif Ttype == 'months':
             t = t/12
-            return round(self.amount(t) - self.principal, 2)
+            return round(self.principal * ((1 + (self.rate / self.nPeriods))**(self.nPeriods * t)), 2)
         elif Ttype == 'days':
             t = t/365
-            return round(self.amount(t) - self.principal, 2)
+            return round(self.principal * ((1 + (self.rate / self.nPeriods))**(self.nPeriods * t)), 2)
         elif Ttype == 'weeks':
             t = t/52
-            return round(self.amount(t) - self.principal, 2)
-    
-    def amount(self, t):
-        return round(self.principal * ((1 + (self.rate / self.nPeriods))**(self.nPeriods * t)), 2)
+            return round(self.principal * ((1 + (self.rate / self.nPeriods))**(self.nPeriods * t)), 2)
+        else:
+            print(f"{Ttype} is to a specified Time frame.")
+            return None
     
     def __str__(self):
-        return f"Principal = ${self.principal}, Rate = {self.rate}%, Compound periods per year = {self.nPeriods}"
+        return f"Principal of ${self.principal}, Rate of {self.rate}%, With {self.nPeriods} compound periods per year."
 
 a = Calc(P=1000,r=4,n=2)
 assert a.interest(3) == 126.16
@@ -48,3 +50,5 @@ assert b.interest(10) == 3442.62
 #add the ability to input time as years mounths and days
 
 c = Calc(1000, 4, 2)
+print(c.interest(36, 'months'))
+print(c)
